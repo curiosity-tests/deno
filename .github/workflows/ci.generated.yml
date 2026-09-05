@@ -32,7 +32,7 @@ permissions:
   contents: write
   id-token: write
 concurrency:
-  group: ${{ github.workflow }}-${{ !contains(github.event.pull_request.labels.*.name, ''ci-test-flaky'') && github.head_ref || github.run_id }}-${{ inputs.leg || 'push' }}-${{ inputs.racecar_run }}
+  group: '${{ github.workflow }}-${{ !contains(github.event.pull_request.labels.*.name, ''ci-test-flaky'') && github.head_ref || github.run_id }}-${{ inputs.leg || ''push'' }}-${{ inputs.racecar_run }}'
   cancel-in-progress: false
 env:
   # The one variable that separates the arms: on baseline, action-checkout
@@ -3789,14 +3789,6 @@ jobs:
   publish-canary:
     name: publish canary
     needs:
-      - build-debug-macos-x86_64
-      - build-release-macos-x86_64
-      - build-debug-macos-aarch64
-      - build-release-macos-aarch64
-      - build-debug-windows-x86_64
-      - build-release-windows-x86_64
-      - build-debug-windows-aarch64
-      - build-release-windows-aarch64
       - build-release-linux-x86_64
       - build-debug-linux-x86_64
       - build-debug-linux-aarch64
